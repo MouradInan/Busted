@@ -1,12 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<script src="https://platform.linkedin.com/in.js" type="text/javascript">
-		api_key: 77cwsj8qusooj1
-		authorize: true
-	</script>
+<script src="http://platform.linkedin.com/in.js" type="text/javascript">
+	api_key: 77cwsj8qusooj1
+	authorize: true
+
+</script>
 </head>
 
 <body>
 </body>
-</html>
+
+
+<script type="IN/MemberProfile" data-id="http://www.linkedin.com/in/satya-nadella-3145136/" data-format="inline" data-related="false"></script>
+
+<script type="text/javascript">
+
+    // Setup an event listener to make an API call once auth is complete
+    function onLinkedInLoad() {
+        IN.Event.on(IN, "auth", getProfileData);
+    }
+
+    // Handle the successful return from the API call
+    function onSuccess(data) {
+        // Pre-populate your form fields here once you know the call
+        // came back successfully
+    }
+
+    // Handle an error response from the API call
+    function onError(error) {
+        console.log(error);
+    }
+
+    // Use the API call wrapper to request the member's basic profile data
+    function getProfileData() {
+        IN.API.Raw("/people/~:(firstName,lastName,emailAddress)").result(onSuccess).error(onError);
+    }
+
+</script>
+
