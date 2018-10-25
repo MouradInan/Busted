@@ -18,9 +18,16 @@ var req = new Request(url);
 fetch(req)
     .then(function(response) {
         console.log(response.json());
+
+        function afficher(response){
+
+        var div=document.getElementById("bloc1")
+         div.style.backgroundColor="#000";
+        div.style.color="#fff";
+        }
     })
 
 	</script>
 
-</body>
+</body id="bloc1", onload= "afficher()">
 </html>
