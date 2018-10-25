@@ -5,30 +5,8 @@
 	<title>News</title>
 </head>
 <body>
-	<h1 id="article"> </h1>
-	<script type="text/javascript">
-
-var url = 'https://newsapi.org/v2/everything?' +
-          'q=Apple&' +
-          'from=2018-10-25&' +
-          'sortBy=popularity&' +
-          'apiKey=1d196f582fa84a40943803b4f6843690';
-
-var req = new Request(url);
-var result;
-fetch(url)
-    .then(function(response) {
-        response.json().then(function(data){
-			result = data;
-			var h1 = document.getElementById("article");
-			console.log(result.articles[0]);
-			h1.innerHTML = result.articles[0].title;
-
-		})
-    });
-
-
-	</script>
-
+	<input id="query" type="text" placeholder="Search...">
+	<button onclick="quest();" type="submit">Search</button>
 </body>
+<script src="script.js" type="text/javascript"></script>
 </html>
