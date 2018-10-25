@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>News</title>
+</head>
+<body>
+	<script type="text/javascript">
+    
+var url = 'https://newsapi.org/v2/everything?' +
+          'q=Apple&' +
+          'from=2018-10-25&' +
+          'sortBy=popularity&' +
+          'apiKey=1d196f582fa84a40943803b4f6843690';
+
+var req = new Request(url);
+
+fetch(req)
+    .then(function(response) {
+        console.log(response.json());
+    })
+
+	</script>
+
+</body>
+</html>
