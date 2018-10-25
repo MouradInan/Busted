@@ -1,0 +1,1 @@
+Notre projet etait de créer une application permettant aux RH de pouvoir voir les différents posts d'un candidat à un poste. Nous avons finalement changé de sujet car les apis utilisés ici etais des apis privé necessitant des tokens. Et sans utilisation d'un serveur ce projet etait compliqué.
