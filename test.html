@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<meta charset="UTF-8" />
+	<title>News</title>
 </head>
 <body>
 	<script type="text/javascript">
-		
-		FB.api('/113124472034820', function(response) {
-  console.log(response);
-});
-		var pageAccessToken = '1234567890|faketoken';
-FB.api('/me/conversations', {
-  access_token : pageAccessToken
-});
+    
+var url = 'https://newsapi.org/v2/everything?' +
+          'q=Apple&' +
+          'from=2018-10-25&' +
+          'sortBy=popularity&' +
+          'apiKey=1d196f582fa84a40943803b4f6843690';
+
+var req = new Request(url);
+
+fetch(req)
+    .then(function(response) {
+        console.log(response.json());
+    })
 
 	</script>
 
