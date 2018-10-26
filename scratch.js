@@ -3,9 +3,15 @@ var result;
 var a='Paris';
 var url='http://api.openweathermap.org/data/2.5/weather?q='+a+'&appid='+key;
 if ("geolocation" in navigator) {
-  /* géolocalisation possible */
+  console.log(navigator)
 } else {
   alert("Le service de géolocalisation n'est pas disponible sur votre ordinateur.");
+}
+function callback( position ) {
+    var lat = position.coords.latitude;
+    var lng = position.coords.longitude;
+    console.log(lat, lng);
+    // Do stuff
 }
 fetch(url)
     .then( function(response){ response.json()
@@ -13,7 +19,6 @@ fetch(url)
             result = data;
             console.log(result);
             var imgmeteo= new Image(100,100) ;
-            document.body.innerHTML ="<div> In "+result.name+", the weather is "+result.weather[0].main+"</div>";
             switch (result.weather[0].main) {
                 case 'Mist':
                     imgmeteo.scr='https://mvistatic.com/design/images/meteo/pictos/2017/nuit_P6_a.png';
@@ -37,4 +42,5 @@ fetch(url)
                   default:
                     console.log(imgmeteo);
                     }
+                    document.body.innerHTML +="<div onload='callback()'> In "+result.name+", the weather is "+result.weather[0].main+"</div>";
         })});
