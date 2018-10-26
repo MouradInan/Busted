@@ -62,6 +62,7 @@ function createStructure(result){
     }
 }
 
+/* removeLastSearch supprime la dernière recherche effectué */
 function removeLastSearch(){
     var article = document.getElementById("article");
     article.innerHTML = '';
