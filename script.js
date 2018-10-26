@@ -31,12 +31,14 @@ function createStructure(result){
     for(i=0;i<result.articles.length; i++){
         // création d'une div card , div card-image, div card-content, div-action (voir materialize)
         var card = document.createElement("div");
-        card.setAttribute("class", "card col s4");
+        card.setAttribute("class", "card small col s4");
 
         var cardImg = document.createElement("div");
         cardImg.setAttribute("class", "card-image");
         var img = document.createElement("img");
-        img.setAttribute("src", result.articles[i].urlToImage);
+        img.setAttribute("src", result.articles[i].urlToImage == '' ? "https://cdn.browshot.com/static/images/not-found.png" : result.articles[i].urlToImage);
+        img.setAttribute("id", "img" + i);
+        img.style.height = result.articles[i].urlToImage == '' ? "200px" : "auto";
 
         var cardContent = document.createElement("div");
         cardContent.setAttribute("class", "card-content");
@@ -47,7 +49,7 @@ function createStructure(result){
         cardAction.setAttribute("class", "card-action");
         var a = document.createElement("a");
         a.setAttribute("href", result.articles[i].url);
-        a.innerHTML = result.articles[i].title;
+        a.innerHTML = "Consulter l'article";
 
         // Construction de l'hiérarchie de l'arbre des éléments html
         document.getElementById("article").appendChild(card);
