@@ -1,4 +1,4 @@
-var url = 'https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=1d196f582fa84a40943803b4f6843690';
+var url = 'https://newsapi.org/v2/top-headlines?sources=google-news&apiKey=1d196f582fa84a40943803b4f6843690';
 
 var req = new Request(url);
 var result;
@@ -36,19 +36,19 @@ fetch(url)
         var newDiv1 = document.createElement("img"); 
         newDiv.appendChild(newDiv1); 
 
-  // and give it some content 
+
         var newContent = document.createTextNode(x); 
 
-  // add the text node to the newly created div
+  
         newDiv.appendChild(newContent);  
 
 
-  // add the newly created element and its content into the DOM 
+  
         var currentDiv = document.getElementById("p"); 
         document.body.insertBefore(newDiv, currentDiv); 
-         newDiv1.setAttribute("src", url);
-         newDiv1.setAttribute("width","300px");
-         newDiv1.setAttribute("height","300px");
+        newDiv1.setAttribute("src", url);
+        newDiv1.setAttribute("width","300px");
+        newDiv1.setAttribute("height","300px");
          
 
   }
