@@ -8,9 +8,14 @@ function call(){
     //Supresssion de l'ancienne recherche si elle existe
     removeLastSearch();
     var query = document.getElementById("query").value;
+    var today = new Date();
+    var todayDate = today.getFullYear() + '-' + parseInt(today.getMonth()+1, 10) + '-' + today.getDate() ;
+    console.log(todayDate);
     var url = 'https://newsapi.org/v2/everything?' +
               'q='+ query + '&' +
-              'language=fr&' +
+              'sortBy=relevancy&' +
+              'from=' + todayDate + '&' +
+              'language=fr&'+
               'apiKey=1d196f582fa84a40943803b4f6843690';
     fetch(url)
     .then(function(response) {
@@ -66,4 +71,40 @@ function createStructure(result){
 function removeLastSearch(){
     var article = document.getElementById("article");
     article.innerHTML = '';
+}
+
+var titles = [];
+
+function autocompletion(){
+
+    var query = document.getElementById("query").value;
+    var url = 'https://newsapi.org/v2/top-headlines?' +
+              'country=fr&' +
+              'apiKey=1d196f582fa84a40943803b4f6843690';
+    fetch(url)
+    .then(function(response) {
+        response.json().then(function(data){
+            result = data;
+
+            for(i=0;i<result.articles.length; i++){
+                titles[i] = result.articles[i].title;
+            }
+
+        }).catch(function(error){
+            console.log("Erreur lors de la prise des données en json : " + error);
+        });
+    }).catch(function(error){
+        console.log("Il y a eu un problème lors de l'appel de l'Api");
+    });
+    $( "#query" ).autocomplete({
+        onSelect : function(selected){
+            $("#query").val(selected);
+        },
+        source: function( request, response ) {
+          var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
+          response( $.grep( titles, function( item ){
+              return matcher.test( item );
+          }) );
+      }
+    });
 }
