@@ -1,4 +1,12 @@
-var url = 'https://newsapi.org/v2/top-headlines?sources=google-news&apiKey=1d196f582fa84a40943803b4f6843690';
+
+
+
+//var langue=["fr","us","cn","ru","gb"]
+
+
+
+
+var url = 'https://newsapi.org/v2/top-headlines?country=fr&apiKey=1d196f582fa84a40943803b4f6843690';
 
 var req = new Request(url);
 var result;
@@ -14,7 +22,7 @@ fetch(url)
         var newDiv = document.createElement("h5"); 
         var newDiv1 = document.createElement("a"); 
 
-         newDiv.appendChild(newDiv1);
+         newDiv.appendChild(newDiv1); 
 
   // ajouter du text dans le h2
         var newContent = document.createTextNode(x); 
@@ -70,6 +78,19 @@ fetch(url)
 
     });
  });
+
+
+
+ document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems, options);
+  });
+
+
+
+$(document).ready(function(){
+    $('select').formSelect();
+  });
 
 
 
