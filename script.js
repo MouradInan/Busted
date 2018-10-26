@@ -17,7 +17,11 @@ function call(){
         response.json().then(function(data){
             result = data;
             createStructure(result);
+        }).catch(function(error){
+            console.log("Erreur lors de la prise des données en json");
         });
+    }).catch(function(error){
+        console.log("Il y a eu un problème lors de l'appel de l'Api");
     });
 }
 /* Fonction createStructure s'occupe de créer à partir des données reçues de call() des éléments de la page html
@@ -42,7 +46,7 @@ function createStructure(result){
         var cardAction = document.createElement("div");
         cardAction.setAttribute("class", "card-action");
         var a = document.createElement("a");
-        a.setAttribute("href", result.articles[i].urlToImage);
+        a.setAttribute("href", result.articles[i].url);
         a.innerHTML = result.articles[i].title;
 
         // Construction de l'hiérarchie de l'arbre des éléments html
