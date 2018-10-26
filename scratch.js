@@ -2,16 +2,23 @@ var key="ee43a99b93e33ab5579123dc84a94031";
 var result;
 var a='Paris';
 var url='http://api.openweathermap.org/data/2.5/weather?q='+a+'&appid='+key;
-if ("geolocation" in navigator) {
-  console.log(navigator)
+
+if( !navigator.geolocation ){
+    alert( 'Votre navigateur ne gère pas la localisation' );
 } else {
-  alert("Le service de géolocalisation n'est pas disponible sur votre ordinateur.");
+    //Demande de la position
+    navigator.geolocation.getCurrentPosition(parseCoords );
 }
-function callback( position ) {
+function parseCoords( position ){
+    //Latitude
     var lat = position.coords.latitude;
-    var lng = position.coords.longitude;
-    console.log(lat, lng);
-    // Do stuff
+    //Longitude
+    var lon = position.coords.longitude;
+
+    console.log("lat : ",lat);
+    console.log("lon : ",lon)
+    /* Ici, on peut par exemple utiliser les deux variables
+       pour se positionner sur une carte. */
 }
 fetch(url)
     .then( function(response){ response.json()
@@ -42,5 +49,5 @@ fetch(url)
                   default:
                     console.log(imgmeteo);
                     }
-                    document.body.innerHTML +="<div onload='callback()'> In "+result.name+", the weather is "+result.weather[0].main+"</div>";
+                    document.body.innerHTML +="<div onload='parseCoords())'> In "+result.name+", the weather is "+result.weather[0].main+"</div>";
         })});
