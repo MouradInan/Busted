@@ -7,26 +7,17 @@
 function call(){
     //Supresssion de l'ancienne recherche si elle existe
     removeLastSearch();
+    var final = [];
     var query = document.getElementById("query").value;
-    var today = new Date();
-    var todayDate = today.getFullYear() + '-' + parseInt(today.getMonth()+1, 10) + '-' + today.getDate() ;
-    console.log(todayDate);
-    var url = 'https://newsapi.org/v2/everything?' +
-              'q='+ query + '&' +
-              'sortBy=relevancy&' +
-              'from=' + todayDate + '&' +
-              'language=fr&'+
+    var desired = query.replace(/[.,\/#!$%\^&\*;:{}=\-_`~?()]/g," ")
+    var url2 = 'https://newsapi.org/v2/everything?' +
+              'q='+ desired + '&' +
+              'language=fr&' +
               'apiKey=1d196f582fa84a40943803b4f6843690';
-    fetch(url)
-    .then(function(response) {
-        response.json().then(function(data){
-            result = data;
-            createStructure(result);
-        }).catch(function(error){
-            console.log("Erreur lors de la prise des données en json");
+    var api2 = fetch(url2).then(function(response){
+        return response.json().then(function(data){
+            createStructure(data);
         });
-    }).catch(function(error){
-        console.log("Il y a eu un problème lors de l'appel de l'Api");
     });
 }
 /* Fonction createStructure s'occupe de créer à partir des données reçues de call() des éléments de la page html
@@ -67,7 +58,7 @@ function createStructure(result){
     }
 }
 
-/* removeLastSearch supprime la dernière recherche effectué */
+/* removeLastSearch supprime la dernière recherche effectuée */
 function removeLastSearch(){
     var article = document.getElementById("article");
     article.innerHTML = '';
@@ -78,33 +69,23 @@ var titles = [];
 function autocompletion(){
 
     var query = document.getElementById("query").value;
-    var url = 'https://newsapi.org/v2/top-headlines?' +
-              'country=fr&' +
+    var url2 = 'https://newsapi.org/v2/everything?' +
+              'q='+ query + '&' +
+              'language=fr&' +
               'apiKey=1d196f582fa84a40943803b4f6843690';
-    fetch(url)
-    .then(function(response) {
-        response.json().then(function(data){
-            result = data;
-
-            for(i=0;i<result.articles.length; i++){
-                titles[i] = result.articles[i].title;
+    var api2 = fetch(url2).then(function(response){
+        return response.json().then(function(data){
+            for(var i=0; i< data.articles.length; i++){
+                if(data.articles[i].url != ''){
+                    titles.push(data.articles[i].title);
+                }
             }
-
-        }).catch(function(error){
-            console.log("Erreur lors de la prise des données en json : " + error);
+            $( "#query" ).autocomplete({
+                select : function(selected){
+                    $("#query").val(selected);
+                },
+                source: titles
+            });
         });
-    }).catch(function(error){
-        console.log("Il y a eu un problème lors de l'appel de l'Api");
-    });
-    $( "#query" ).autocomplete({
-        onSelect : function(selected){
-            $("#query").val(selected);
-        },
-        source: function( request, response ) {
-          var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
-          response( $.grep( titles, function( item ){
-              return matcher.test( item );
-          }) );
-      }
     });
 }
