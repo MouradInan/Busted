@@ -16,6 +16,10 @@ function call(){
               'apiKey=1d196f582fa84a40943803b4f6843690';
     var api2 = fetch(url2).then(function(response){
         return response.json().then(function(data){
+            if(data.articles.length == 0){
+                 M.toast({html: 'Il n\' a pas d\'articles sur ce sujet', displayLength: 1000, classes:'red darken-3'})
+            }
+             M.toast({html: data.articles.length + ' articles trouvés', displayLength: 1000, classes:'red darken-3'})
             createStructure(data);
         });
     });
@@ -64,28 +68,29 @@ function removeLastSearch(){
     article.innerHTML = '';
 }
 
-var titles = [];
-
 function autocompletion(){
-
+    var titles = [];
     var query = document.getElementById("query").value;
-    var url2 = 'https://newsapi.org/v2/everything?' +
-              'q='+ query + '&' +
-              'language=fr&' +
-              'apiKey=1d196f582fa84a40943803b4f6843690';
-    var api2 = fetch(url2).then(function(response){
-        return response.json().then(function(data){
-            for(var i=0; i< data.articles.length; i++){
-                if(data.articles[i].url != ''){
-                    titles.push(data.articles[i].title);
+    console.log(query.length)
+    if(query.length > 3){
+        var url2 = 'https://newsapi.org/v2/everything?' +
+                      'q='+ query + '&' +
+                      'language=fr&' +
+                      'apiKey=1d196f582fa84a40943803b4f6843690';
+        var api2 = fetch(url2).then(function(response){
+            return response.json().then(function(data){
+                for(var i=0; i< data.articles.length; i++){
+                    if(data.articles[i].url != ''){
+                        titles.push(data.articles[i].title);
+                    }
                 }
-            }
-            $( "#query" ).autocomplete({
-                select : function(selected){
-                    $("#query").val(selected);
-                },
-                source: titles
             });
         });
-    });
+        $( "#query" ).autocomplete({
+            select : function(selected){
+                $("#query").val(selected);
+            },
+            source: titles
+        });
+    }
 }
