@@ -7,21 +7,21 @@
 function call(){
     //Supresssion de l'ancienne recherche si elle existe
     removeLastSearch();
-    var final = [];
     var query = document.getElementById("query").value;
-    var desired = query.replace(/[.,\/#!$%\^&\*;:{}=\-_`~?()]/g," ")
-    var url2 = 'https://newsapi.org/v2/everything?' +
-              'q='+ desired + '&' +
+    var url = 'https://newsapi.org/v2/everything?' +
+              'q='+ query + '&' +
               'language=fr&' +
-              'apiKey=1d196f582fa84a40943803b4f6843690';
-    var api2 = fetch(url2).then(function(response){
-        return response.json().then(function(data){
-            if(data.articles.length == 0){
-                 M.toast({html: 'Il n\' a pas d\'articles sur ce sujet', displayLength: 1000, classes:'red darken-3'})
-            }
-             M.toast({html: data.articles.length + ' articles trouvés', displayLength: 1000, classes:'red darken-3'})
-            createStructure(data);
+              'apiKey=6cd5152e27e940f091262721214a542f';
+    fetch(url)
+    .then(function(response) {
+        response.json().then(function(data){
+            result = data;
+            createStructure(result);
+        }).catch(function(error){
+            console.log("Erreur lors de la prise des données en json");
         });
+    }).catch(function(error){
+        console.log("Il y a eu un problème lors de l'appel de l'Api");
     });
 }
 /* Fonction createStructure s'occupe de créer à partir des données reçues de call() des éléments de la page html
@@ -61,8 +61,7 @@ function createStructure(result){
         cardAction.appendChild(a);
     }
 }
-
-/* removeLastSearch supprime la dernière recherche effectuée */
+/* removeLastSearch supprime la dernière recherche effectué */
 function removeLastSearch(){
     var article = document.getElementById("article");
     article.innerHTML = '';
@@ -71,26 +70,91 @@ function removeLastSearch(){
 function autocompletion(){
     var titles = [];
     var query = document.getElementById("query").value;
-    console.log(query.length)
-    if(query.length > 3){
-        var url2 = 'https://newsapi.org/v2/everything?' +
-                      'q='+ query + '&' +
-                      'language=fr&' +
-                      'apiKey=1d196f582fa84a40943803b4f6843690';
-        var api2 = fetch(url2).then(function(response){
-            return response.json().then(function(data){
-                for(var i=0; i< data.articles.length; i++){
-                    if(data.articles[i].url != ''){
-                        titles.push(data.articles[i].title);
-                    }
+    console.log("toto");
+    if(query.length > 4){
+        var url = 'https://newsapi.org/v2/everything?' +
+                  'q='+ query + '&' +
+                  'language=fr&' +
+                  'apiKey=6cd5152e27e940f091262721214a542f';
+        fetch(url)
+        .then(function(response) {
+            response.json().then(function(data){
+                result = data;
+
+                for(i=0;i<result.articles.length; i++){
+                    titles[i] = result.articles[i].title;
                 }
+            }).catch(function(error){
+                console.log("Erreur lors de la prise des données en json : " + error);
             });
+        }).catch(function(error){
+            console.log("Il y a eu un problème lors de l'appel de l'Api");
         });
         $( "#query" ).autocomplete({
-            select : function(selected){
+            onSelect : function(selected){
                 $("#query").val(selected);
             },
             source: titles
         });
     }
 }
+//var langue=["fr","us","cn","ru","gb"]
+function loadTopHeadlines(){
+    var url = 'https://newsapi.org/v2/top-headlines?country=fr&apiKey=6cd5152e27e940f091262721214a542f';
+
+    var req = new Request(url);
+    var result;
+    fetch(url)
+        .then(function(response) {
+            response.json().then(function(data){
+                createStructure(data);
+            });
+        });
+}
+
+function addElement (x, lien) {
+    // creé la div h2 et a
+    var newDiv = document.createElement("h5");
+    var newDiv1 = document.createElement("a");
+         newDiv.appendChild(newDiv1);
+
+  // ajouter du text dans le h2
+    var newContent = document.createTextNode(x);
+  //
+    newDiv1.appendChild(newContent);
+
+
+  // Mettre le titre dans le DOM
+    var currentDiv = document.getElementById("div1");
+    document.body.insertBefore(newDiv, currentDiv);
+
+    newDiv1.setAttribute("href", lien );
+
+}
+
+function addAuthor(x, url){
+    var newDiv = document.createElement("p");
+    var newDiv1 = document.createElement("img");
+    newDiv.appendChild(newDiv1);
+
+
+    var newContent = document.createTextNode(x);
+
+
+    newDiv.appendChild(newContent);
+
+
+
+    var currentDiv = document.getElementById("p");
+    document.body.insertBefore(newDiv, currentDiv);
+    newDiv1.setAttribute("src", url);
+    newDiv1.setAttribute("width","300px");
+    newDiv1.setAttribute("height","300px");
+}
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('select');
+});
+
+$(document).ready(function(){
+    $('select').formSelect();
+});
