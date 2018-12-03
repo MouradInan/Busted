@@ -15,8 +15,14 @@ function call(){
     fetch(url)
     .then(function(response) {
         response.json().then(function(data){
-            result = data;
-            createStructure(result);
+            if(data.articles.length == 0){
+                M.toast({html: 'Il n\' y a pas d\'articles sur ce sujet actuellement '})
+            }
+            else{
+                  M.toast({html: data.articles.length + ' articles affichés.', classes: 'red darken-3'})
+                createStructure(result);
+            }
+
         }).catch(function(error){
             console.log("Erreur lors de la prise des données en json");
         });
@@ -71,7 +77,7 @@ function autocompletion(){
     var titles = [];
     var query = document.getElementById("query").value;
     console.log("toto");
-    if(query.length > 4){
+    if(query.length >= 4){
         var url = 'https://newsapi.org/v2/everything?' +
                   'q='+ query + '&' +
                   'language=fr&' +
@@ -84,6 +90,7 @@ function autocompletion(){
                 for(i=0;i<result.articles.length; i++){
                     titles[i] = result.articles[i].title;
                 }
+                console.log(titles);
             }).catch(function(error){
                 console.log("Erreur lors de la prise des données en json : " + error);
             });
@@ -99,8 +106,9 @@ function autocompletion(){
     }
 }
 //var langue=["fr","us","cn","ru","gb"]
-function loadTopHeadlines(){
-    var url = 'https://newsapi.org/v2/top-headlines?country=fr&apiKey=6cd5152e27e940f091262721214a542f';
+function loadTopHeadlines(lang){
+    removeLastSearch();
+    var url = 'https://newsapi.org/v2/top-headlines?country='+lang+'&apiKey=6cd5152e27e940f091262721214a542f';
 
     var req = new Request(url);
     var result;
@@ -158,3 +166,8 @@ document.addEventListener('DOMContentLoaded', function() {
 $(document).ready(function(){
     $('select').formSelect();
 });
+$('.with-gap').change(function(){
+    if(this.checked){
+        loadTopHeadlines(this.value);
+    }
+})
