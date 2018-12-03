@@ -16,8 +16,20 @@
 
 	<title>News</title>
 </head>
-<body onload="autocompletion();">
+<body onload="loadTopHeadlines('fr'); autocompletion();">
 	<div class="container">
+		<div class="row">
+			<p>
+		       <label>
+		         <input class="with-gap" name="group1" type="radio" value="fr" checked />
+		         <span>FR</span>
+		       </label>
+			   <label>
+				 <input class="with-gap" name="group1" type="radio" value="us" />
+				 <span>EN</span>
+			   </label>
+     		</p>
+		</div>
 		<div class="row">
 			<div class="col s2">
 				<img src="https://previews.123rf.com/images/aquir/aquir1611/aquir161102540/66677685-timbre-carr%C3%A9-busted.jpg" width=150 height=70>
