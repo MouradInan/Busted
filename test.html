@@ -16,23 +16,24 @@
 
 	<title>News</title>
 </head>
-<body onload="loadTopHeadlines('fr'); autocompletion();">
+<body onload="loadTopHeadlines('fr');">
 	<div class="container">
 		<div class="row">
+			<h5>Choisir votre pays:</h5>
 			<p>
 		       <label>
 		         <input class="with-gap" name="group1" type="radio" value="fr" checked />
-		         <span>FR</span>
+		         <span><img src="https://www.countryflags.io/fr/flat/32.png"></span>
 		       </label>
 			   <label>
 				 <input class="with-gap" name="group1" type="radio" value="us" />
-				 <span>EN</span>
+				 <span><img src="https://www.countryflags.io/us/flat/32.png"></span>
 			   </label>
      		</p>
 		</div>
 		<div class="row">
 			<div class="col s2">
-				<img src="https://previews.123rf.com/images/aquir/aquir1611/aquir161102540/66677685-timbre-carr%C3%A9-busted.jpg" width=150 height=70>
+				<a href="test.html" ><img src="https://toppng.com/public/uploads/preview/busted-stamp-11523372338nfphggxz82.png" width=100% height=100%></a>
 			</div>
 			<div class="col s8">
 				<input oninput="autocompletion();" id="query" type="text" placeholder="Search...">

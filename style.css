@@ -1,4 +1,10 @@
 .ui-autocomplete { height: 200px; overflow-y: scroll; overflow-x: hidden;}
+.articles-image{
+    max-height: 150px;
+}
 body{
-    background-color: #b39ddb;
+    background-image: url('https://thumbs.dreamstime.com/t/white-wood-planks-background-rustic-white-wood-planks-background-wood-texture-109733114.jpg');
+}
+.card{
+    background-color: rgb(255,255,255,0.5);
 }

@@ -6,7 +6,6 @@
 */
 function call(){
     //Supresssion de l'ancienne recherche si elle existe
-    removeLastSearch();
     var query = document.getElementById("query").value;
     var url = 'https://newsapi.org/v2/everything?' +
               'q='+ query + '&' +
@@ -19,8 +18,10 @@ function call(){
                 M.toast({html: 'Il n\' y a pas d\'articles sur ce sujet actuellement '})
             }
             else{
-                  M.toast({html: data.articles.length + ' articles affichés.', classes: 'red darken-3'})
-                createStructure(result);
+                removeLastSearch();
+                M.toast({html: data.articles.length + ' article(s) affiché(s).', classes: 'red darken-3'})
+                console.log(data);
+                createStructure(data);
             }
 
         }).catch(function(error){
@@ -38,13 +39,15 @@ function createStructure(result){
         // création d'une div card , div card-image, div card-content, div-action (voir materialize)
         var card = document.createElement("div");
         card.setAttribute("class", "card small col s4");
+        card.setAttribute('id', 'card-'+i);
 
         var cardImg = document.createElement("div");
         cardImg.setAttribute("class", "card-image");
         var img = document.createElement("img");
-        img.setAttribute("src", result.articles[i].urlToImage == '' ? "https://cdn.browshot.com/static/images/not-found.png" : result.articles[i].urlToImage);
+        img.setAttribute("src", result.articles[i].urlToImage);
+        img.setAttribute("onerror", "this.src='http://futuris-logistics.com/wp-content/uploads/2014/06/news.jpg'");
         img.setAttribute("id", "img" + i);
-        img.style.height = result.articles[i].urlToImage == '' ? "200px" : "auto";
+        img.setAttribute('class','articles-image')
 
         var cardContent = document.createElement("div");
         cardContent.setAttribute("class", "card-content");
@@ -65,18 +68,23 @@ function createStructure(result){
         card.appendChild(cardAction);
         cardContent.appendChild(p);
         cardAction.appendChild(a);
+        $("#card-"+i).hover(function(){
+            console.log('toto');
+            $(this).css('background-color', 'rgb(255,255,255,1)');
+        }, function(){
+            $(this).css('background-color', 'rgb(255,255,255,0.3)')
+        });
+
     }
 }
 /* removeLastSearch supprime la dernière recherche effectué */
 function removeLastSearch(){
-    var article = document.getElementById("article");
-    article.innerHTML = '';
+    $('#article').html('');
 }
 
 function autocompletion(){
     var titles = [];
     var query = document.getElementById("query").value;
-    console.log("toto");
     if(query.length >= 4){
         var url = 'https://newsapi.org/v2/everything?' +
                   'q='+ query + '&' +
@@ -84,13 +92,11 @@ function autocompletion(){
                   'apiKey=6cd5152e27e940f091262721214a542f';
         fetch(url)
         .then(function(response) {
-            response.json().then(function(data){
-                result = data;
+            response.json().then(function(result){
 
                 for(i=0;i<result.articles.length; i++){
                     titles[i] = result.articles[i].title;
                 }
-                console.log(titles);
             }).catch(function(error){
                 console.log("Erreur lors de la prise des données en json : " + error);
             });
@@ -105,13 +111,10 @@ function autocompletion(){
         });
     }
 }
-//var langue=["fr","us","cn","ru","gb"]
 function loadTopHeadlines(lang){
     removeLastSearch();
     var url = 'https://newsapi.org/v2/top-headlines?country='+lang+'&apiKey=6cd5152e27e940f091262721214a542f';
-
     var req = new Request(url);
-    var result;
     fetch(url)
         .then(function(response) {
             response.json().then(function(data){
@@ -119,53 +122,6 @@ function loadTopHeadlines(lang){
             });
         });
 }
-
-function addElement (x, lien) {
-    // creé la div h2 et a
-    var newDiv = document.createElement("h5");
-    var newDiv1 = document.createElement("a");
-         newDiv.appendChild(newDiv1);
-
-  // ajouter du text dans le h2
-    var newContent = document.createTextNode(x);
-  //
-    newDiv1.appendChild(newContent);
-
-
-  // Mettre le titre dans le DOM
-    var currentDiv = document.getElementById("div1");
-    document.body.insertBefore(newDiv, currentDiv);
-
-    newDiv1.setAttribute("href", lien );
-
-}
-
-function addAuthor(x, url){
-    var newDiv = document.createElement("p");
-    var newDiv1 = document.createElement("img");
-    newDiv.appendChild(newDiv1);
-
-
-    var newContent = document.createTextNode(x);
-
-
-    newDiv.appendChild(newContent);
-
-
-
-    var currentDiv = document.getElementById("p");
-    document.body.insertBefore(newDiv, currentDiv);
-    newDiv1.setAttribute("src", url);
-    newDiv1.setAttribute("width","300px");
-    newDiv1.setAttribute("height","300px");
-}
-document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('select');
-});
-
-$(document).ready(function(){
-    $('select').formSelect();
-});
 $('.with-gap').change(function(){
     if(this.checked){
         loadTopHeadlines(this.value);
