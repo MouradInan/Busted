@@ -8,3 +8,15 @@ body{
 .card{
     background-color: rgb(255,255,255,0.5);
 }
+#cmd-ChipsAjout{
+    transform: translate(0,50%);
+}
+.chips, #query{
+    border-bottom: 1px solid black;
+}
+label {
+    color: #26a69a !important;
+}
+.input::placeholder{
+    color: black !important;
+}

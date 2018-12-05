@@ -14,13 +14,13 @@ function call(){
     fetch(url)
     .then(function(response) {
         response.json().then(function(data){
+            console.log(data);
             if(data.articles.length == 0){
                 M.toast({html: 'Il n\' y a pas d\'articles sur ce sujet actuellement '})
             }
             else{
                 removeLastSearch();
                 M.toast({html: data.articles.length + ' article(s) affiché(s).', classes: 'red darken-3'})
-                console.log(data);
                 createStructure(data);
             }
 
@@ -69,7 +69,6 @@ function createStructure(result){
         cardContent.appendChild(p);
         cardAction.appendChild(a);
         $("#card-"+i).hover(function(){
-            console.log('toto');
             $(this).css('background-color', 'rgb(255,255,255,1)');
         }, function(){
             $(this).css('background-color', 'rgb(255,255,255,0.3)')
@@ -85,6 +84,7 @@ function removeLastSearch(){
 function autocompletion(){
     var titles = [];
     var query = document.getElementById("query").value;
+    console.log(query.length);
     if(query.length >= 4){
         var url = 'https://newsapi.org/v2/everything?' +
                   'q='+ query + '&' +
@@ -92,23 +92,25 @@ function autocompletion(){
                   'apiKey=6cd5152e27e940f091262721214a542f';
         fetch(url)
         .then(function(response) {
+            console.log('reponse ' + response);
             response.json().then(function(result){
-
+                console.log(result.articles);
                 for(i=0;i<result.articles.length; i++){
                     titles[i] = result.articles[i].title;
                 }
+                $( "#query" ).autocomplete({
+                    onSelect : function(selected){
+                        $("#query").val(selected);
+                    },
+                    source: titles
+                });
             }).catch(function(error){
                 console.log("Erreur lors de la prise des données en json : " + error);
             });
         }).catch(function(error){
             console.log("Il y a eu un problème lors de l'appel de l'Api");
         });
-        $( "#query" ).autocomplete({
-            onSelect : function(selected){
-                $("#query").val(selected);
-            },
-            source: titles
-        });
+        
     }
 }
 function loadTopHeadlines(lang){
@@ -127,3 +129,59 @@ $('.with-gap').change(function(){
         loadTopHeadlines(this.value);
     }
 })
+var data = {
+    'Divertissement': null,
+    'Général': null,
+    'Santé': null,
+    'Science': null,
+    'Sport': null,
+    'Technologie': null
+};
+// NEW CHIP COMMAND
+    $("#cmd-ChipsAjout").click(function () {
+        removeLastSearch();
+        var input = M.Chips.getInstance($('#lg-input')).chipsData[0].tag;
+        switch(input){
+            case "Divertissement":
+                input = "entertainment";
+                break;
+            case "Général":
+                input = "general";
+                break;
+            case "Santé":
+                input = "health";
+                break;
+            case "Sport":
+                input = "sports";
+                break;
+            case "Technologie":
+                input = "technology";
+                break;
+            case "Science":
+                input = "science";
+                break;
+            case "Business":
+                input = "business";
+                break;
+        };
+
+        var url = 'https://newsapi.org/v2/top-headlines?country=fr&category='+input+'&apiKey=6cd5152e27e940f091262721214a542f';
+        var req = new Request(url);
+        fetch(url)
+        .then(function(response) {
+            response.json().then(function(data){
+                createStructure(data);
+           
+            });
+        });
+    });
+
+    $("#lg-input").chips({
+        autocompleteOptions: {
+            data: data
+        },
+        placeholder: "Catégorie",
+  
+    });
+
+
