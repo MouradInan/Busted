@@ -46,7 +46,7 @@ function createStructure(result){
         cardImg.setAttribute("class", "card-image");
         var img = document.createElement("img");
         img.setAttribute("src", result.articles[i].urlToImage);
-        img.setAttribute("onerror", "this.src='http://futuris-logistics.com/wp-content/uploads/2014/06/news.jpg'");
+        img.setAttribute("onerror", "this.src='news.jpg'");
         img.setAttribute("id", "img" + i);
         img.setAttribute('class','articles-image')
 
