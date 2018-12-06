@@ -7,14 +7,15 @@
 function call(){
     //Supresssion de l'ancienne recherche si elle existe
     var query = document.getElementById("query").value;
+    var punctuationless = query.replace(/[.,\/#!$%\^&\*;:{}?=\-_`~()]/g,"");
+    var finalString = punctuationless.replace(/\s{2,}/g," ");
     var url = 'https://newsapi.org/v2/everything?' +
-              'q='+ query + '&' +
+              'q='+ finalString + '&' +
               'language=fr&' +
               'apiKey=6cd5152e27e940f091262721214a542f';
     fetch(url)
     .then(function(response) {
         response.json().then(function(data){
-            console.log(data);
             if(data.articles.length == 0){
                 M.toast({html: 'Il n\' y a pas d\'articles sur ce sujet actuellement '})
             }
@@ -80,39 +81,33 @@ function createStructure(result){
 function removeLastSearch(){
     $('#article').html('');
 }
-
-function autocompletion(){
-    var titles = [];
-    var query = document.getElementById("query").value;
-    console.log(query.length);
-    if(query.length >= 4){
-        var url = 'https://newsapi.org/v2/everything?' +
-                  'q='+ query + '&' +
-                  'language=fr&' +
-                  'apiKey=6cd5152e27e940f091262721214a542f';
-        fetch(url)
-        .then(function(response) {
-            console.log('reponse ' + response);
-            response.json().then(function(result){
-                console.log(result.articles);
-                for(i=0;i<result.articles.length; i++){
-                    titles[i] = result.articles[i].title;
-                }
-                $( "#query" ).autocomplete({
-                    onSelect : function(selected){
-                        $("#query").val(selected);
-                    },
-                    source: titles
-                });
-            }).catch(function(error){
-                console.log("Erreur lors de la prise des données en json : " + error);
-            });
-        }).catch(function(error){
-            console.log("Il y a eu un problème lors de l'appel de l'Api");
-        });
-        
+var cache = {};
+$( "#query" ).autocomplete({
+    source: function(req, res){
+        var titles = [];
+        console.log(req.term);
+        if (req.term in cache){
+            res(cache[req.term]);
+            return;
+        }
+        if(req.term.length >= 4){
+            var url = 'https://newsapi.org/v2/everything?' +
+                    'q='+ req.term + '&' +
+                    'language=fr&' +
+                    'apiKey=6cd5152e27e940f091262721214a542f';
+            const response = fetch(url);
+            response.then(function(resp){
+                resp.json().then(json => {
+                    for(i=0;i<json.articles.length; i++){
+                        titles.push(json.articles[i].title);
+                    }
+                    cache[req.term] = titles;   
+                    res(titles);
+                })
+            })
+        }
     }
-}
+});
 function loadTopHeadlines(lang){
     removeLastSearch();
     var url = 'https://newsapi.org/v2/top-headlines?country='+lang+'&apiKey=6cd5152e27e940f091262721214a542f';
