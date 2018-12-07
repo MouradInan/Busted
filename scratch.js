@@ -1,25 +1,8 @@
 var key="ee43a99b93e33ab5579123dc84a94031";
 var result;
 var a='Paris';
+
 var url='http://api.openweathermap.org/data/2.5/weather?q='+a+'&appid='+key;
-
-if( !navigator.geolocation ){
-    alert( 'Votre navigateur ne gère pas la localisation' );
-} else {
-    //Demande de la position
-    navigator.geolocation.getCurrentPosition(parseCoords );
-}
-function parseCoords( position ){
-    //Latitude
-    var lat = position.coords.latitude;
-    //Longitude
-    var lon = position.coords.longitude;
-
-    console.log("lat : ",lat);
-    console.log("lon : ",lon)
-    /* Ici, on peut par exemple utiliser les deux variables
-       pour se positionner sur une carte. */
-}
 fetch(url)
     .then( function(response){ response.json()
         .then(function(data){
@@ -46,8 +29,12 @@ fetch(url)
                        imgmeteo.src='http://archives.varmatin.com/media_varmatin/imagecache/article-taille-normale/image/ouch/2013/11/17/6819ceccc4f2587143ed626c2bff46a1.png';
                        document.body.appendChild(imgmeteo);
                         break;
+                    case 'Drizzle':
+                       imgmeteo.src='https://png.pngtree.com/png/18/09/10/pngtree-drizzle-weather-png-clipart_1067586.jpg';
+                       document.body.appendChild(imgmeteo);
+                        break;
                   default:
                     console.log(imgmeteo);
                     }
-                    document.body.innerHTML +="<div onload='parseCoords())'> In "+result.name+", the weather is "+result.weather[0].main+"</div>";
+                    document.body.innerHTML +="<div onload='parseCoords()'> In "+result.name+", the weather is "+result.weather[0].main+"</div>";
         })});
