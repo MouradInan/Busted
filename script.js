@@ -7,7 +7,7 @@
 function call(){
     //Supresssion de l'ancienne recherche si elle existe
     var query = document.getElementById("query").value;
-    var punctuationless = query.replace(/[.,\/#!$%\^&\*;:{}?=\-_`~()]/g,"");
+    var punctuationless = query.replace(/[.,\/#!$%\^&\*;:{}?=\-_`~()]/g," ");
     var finalString = punctuationless.replace(/\s{2,}/g," ");
     var url = 'https://newsapi.org/v2/everything?' +
               'q='+ finalString + '&' +
@@ -81,6 +81,7 @@ function createStructure(result){
 function removeLastSearch(){
     $('#article').html('');
 }
+
 var cache = {};
 $( "#query" ).autocomplete({
     source: function(req, res){
@@ -108,6 +109,8 @@ $( "#query" ).autocomplete({
         }
     }
 });
+
+   
 function loadTopHeadlines(lang){
     removeLastSearch();
     var url = 'https://newsapi.org/v2/top-headlines?country='+lang+'&apiKey=6cd5152e27e940f091262721214a542f';
@@ -178,5 +181,4 @@ var data = {
         placeholder: "Catégorie",
   
     });
-
 
