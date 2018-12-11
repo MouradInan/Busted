@@ -60,6 +60,6 @@ function getMeteo(){
                     default:
                         console.log(imgmeteo);
                         }
-                        document.getElementById("meteo").innerHTML +="<div onload='parseCoords()'>"+ result.name+ ", "+resultMeteo+"</div>";
+                        document.getElementById("meteo").innerHTML +="<div onload='parseCoords()'><span id=\"city\">"+ result.name+ "</span>, "+resultMeteo+"</div>";
             })});
 }
