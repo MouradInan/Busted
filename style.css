@@ -37,3 +37,11 @@ label {
 .input::placeholder{
     color: black !important;
 }
+#meteo{
+    border-radius: 0 15px 15px 0;
+    width: 14%;
+    background-color: rgb(38,166,154,0.7);
+}
+#meteo>div{
+    margin-left: 10%;
+}
