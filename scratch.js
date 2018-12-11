@@ -10,12 +10,12 @@ var url;
 			
 			function showPosition(position) {
                 console.log(position.coords.latitude);
-                url='http://api.openweathermap.org/data/2.5/weather?lat='+position.coords.latitude+'&lon='+
+                url='https://api.openweathermap.org/data/2.5/weather?lat='+position.coords.latitude+'&lon='+
                 position.coords.longitude+'&apikey='+key;
                 getMeteo();
             }
             function showError(error){
-                url='http://api.openweathermap.org/data/2.5/weather?q='+a+'&apikey='+key;
+                url='https://api.openweathermap.org/data/2.5/weather?q='+a+'&apikey='+key;
                 getMeteo();
             }
 function getMeteo(){
@@ -33,27 +33,27 @@ function getMeteo(){
                         resultMeteo = 'Brouillard';
                         break;
                     case 'Clouds':
-                        imgmeteo.src='http://archives.nicematin.com/media_nicematin/imagecache/article-taille-normale-nm/image/ouch/2013/11/17/b8af1a5900556d2e5f4a643b11199ff7.png';
+                        imgmeteo.src='http://archives.nicematin.com/media_nicematin/imagecache/article-taille-normale-nm/image/ouch/2013/11/17/b8af1a5900556d2e5f4a643b11199ff7.png&hash=abcdeafad';
                         document.getElementById("meteo").appendChild(imgmeteo);
                         resultMeteo = 'Nuageux';
                         break;
                     case 'Sun':
-                        imgmeteo.scr='http://archives.varmatin.com/media_varmatin/imagecache/article-taille-normale/image/ouch/2013/11/17/6819ceccc4f2587143ed626c2bff46a1.png';
+                        imgmeteo.scr='http://archives.varmatin.com/media_varmatin/imagecache/article-taille-normale/image/ouch/2013/11/17/6819ceccc4f2587143ed626c2bff46a1.png&hash=abcdeafad';
                         document.getElementById("meteo").appendChild(imgmeteo);
                         resultMeteo = 'Clair';
                         break;
                     case 'Rain':
-                        imgmeteo.src='http://www.icône.com/images/icones/1/4/weather-overcast-2.png';
+                        imgmeteo.src='http://www.icône.com/images/icones/1/4/weather-overcast-2.png&hash=abcdeafad';
                         document.getElementById("meteo").appendChild(imgmeteo);
                         resultMeteo = 'Pluvieux';
                         break;
                     case 'Clear':
-                        imgmeteo.src='http://archives.varmatin.com/media_varmatin/imagecache/article-taille-normale/image/ouch/2013/11/17/6819ceccc4f2587143ed626c2bff46a1.png';
+                        imgmeteo.src='http://archives.varmatin.com/media_varmatin/imagecache/article-taille-normale/image/ouch/2013/11/17/6819ceccc4f2587143ed626c2bff46a1.png&hash=abcdeafad';
                         document.getElementById("meteo").appendChild(imgmeteo);
                         resultMeteo = 'Clair';
                         break;
                     case 'Drizzle':
-                        imgmeteo.src='https://png.pngtree.com/png/18/09/10/pngtree-drizzle-weather-png-clipart_1067586.jpg';
+                        imgmeteo.src='http://archives.nicematin.com/media_nicematin/imagecache/article-taille-normale-nm/image/ouch/2013/11/17/b8af1a5900556d2e5f4a643b11199ff7.png&hash=abcdeafad';
                         document.getElementById("meteo").appendChild(imgmeteo);
                         resultMeteo = 'Couvert';    
                         break;
