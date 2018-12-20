@@ -1,0 +1,53 @@
+.ui-autocomplete {
+    max-height: 300px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+    /* add padding to account for vertical scrollbar */
+    padding-right: 10px;
+}
+.ui-menu-item{
+    color: black;
+    font-size: 16px;
+}
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-state-active.ui-button:hover 
+{
+    background-color: #26a69a;
+    border: 1px solid #26a69a;
+    color: white;
+}
+.articles-image {
+    max-height: 150px;
+}
+body {
+    background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgVtyFp2GPbTlZbhfSkmBIYDXG8kOFF3-ReMV0Oq3yncomnoHyuw);
+}
+.card {
+    background-color: rgb(255,255,255,0.5);
+}
+#cmd-ChipsAjout {
+    transform: translate(0,50%);
+}
+.chips, #query {
+    border-bottom: 1px solid black;
+}
+label {
+    color: #26a69a !important;
+}
+.input::placeholder {
+    color: black !important;
+}
+#meteo {
+    border-radius: 0 15px 15px 0;
+    width: 14%;
+    background-color: rgb(38,166,154,0.7);
+}
+#meteo>div {
+    margin-left: 10%;
+}
+#city {
+    color: #b71c1c ;
+}
+.autocomplete-content{
+    width: auto !important;
+}
