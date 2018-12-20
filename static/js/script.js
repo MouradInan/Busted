@@ -160,7 +160,6 @@ $("#cmd-ChipsAjout").click(function () {
             input = "business";
             break;
     };
-    console.log();
     var url = 'https://newsapi.org/v2/top-headlines?country='+$('.with-gap:checked').val()+'&category='+input+'&apiKey=6cd5152e27e940f091262721214a542f';
     fetch(url).then(function(response) {
         response.json().then(function(data){
@@ -178,3 +177,4 @@ $("#lg-input").chips({
     secondaryPlaceholder: "Limite = 1",
     limit: 1
 });
+
