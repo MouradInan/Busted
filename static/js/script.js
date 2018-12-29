@@ -117,6 +117,18 @@ function loadTopHeadlines(lang){
             createStructure(data);
         });
     });
+    var k = 1;
+    $(window).scroll(function() {
+        if ($(document).height() <= ($(window).height() + $(window).scrollTop())) {
+            k++;
+            var url = 'https://newsapi.org/v2/top-headlines?country='+lang+'&page='+k+'&apiKey=6cd5152e27e940f091262721214a542f';
+            fetch(url).then(function(response) {
+                response.json().then(function(data){
+                    createStructure(data);
+                });
+            });
+        }
+    });
 }
 // Changement de langues Fr ou US
 $('.with-gap').change(function(){
@@ -166,6 +178,18 @@ $("#cmd-ChipsAjout").click(function () {
             createStructure(data);
         });
     });
+    var k = 1;
+    $(window).scroll(function() {
+        if ($(document).height() <= ($(window).height() + $(window).scrollTop())) {
+            k++;
+            var url = 'https://newsapi.org/v2/top-headlines?country='+$('.with-gap:checked').val()+'&category='+input+'&page='+k+'&apiKey=6cd5152e27e940f091262721214a542f';
+            fetch(url).then(function(response) {
+                response.json().then(function(data){
+                    createStructure(data);
+                });
+            });
+        }
+    });
 });
 
 $("#lg-input").chips({
@@ -177,4 +201,3 @@ $("#lg-input").chips({
     secondaryPlaceholder: "Limite = 1",
     limit: 1
 });
-
