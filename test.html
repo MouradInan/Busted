@@ -15,9 +15,9 @@
 
 	<title>News</title>
 </head>
-<body onload="loadTopHeadlines('fr'); getLocation();">
-	<div class="white-text z-depth-4 left" id="meteo"></div>
+<body>
 	<div class="container">
+		<!--
 		<div class="row header">
 			<h5>Choisir votre pays:</h5>
 			<p>
@@ -30,27 +30,11 @@
 					<span><img src="https://www.countryflags.io/us/flat/32.png"></span>
 				</label>
 			</p>
-		</div>
+		</div> -->
 		<div class="row">
-			<div class="col s2">
-				<a href="test.html" ><img src="https://toppng.com/public/uploads/preview/busted-stamp-11523372338nfphggxz82.png" width=100% height=100%></a>
-			</div>
-			<div class="col s8 input-field">
+			<div class="col s10 m10 input-field">
 				<input id="query" type="text">
 				<label for="query">Rechercher...</label>
-			</div>
-			<div class="col s2">
-				<button class="btn waves-effect waves-light"  onclick="call();" type="submit" name="action">
-					Rechercher<i class="material-icons right">search</i>
-				</button>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col s3">
-				<div class="chips-autocomplete" id="lg-input" ></div>
-			</div>
-			<div class="col s2">
-				<a id="cmd-ChipsAjout" class="waves-effect waves-light btn"><i class="material-icons">add</i></a>
 			</div>
 		</div>
 		<div id="chips"></div>

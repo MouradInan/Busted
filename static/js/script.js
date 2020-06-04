@@ -31,6 +31,13 @@ function call(){
         console.log("Il y a eu un problème lors de l'appel de l'Api");
     });
 }
+
+$('#query').keypress(function(evt){
+
+    if(evt.keyCode == 13){
+        call();
+    }
+});
 /* Fonction createStructure s'occupe de créer à partir des données reçues de call() des éléments de la page html
     paramètre : result : resultat de l'api News */
 function createStructure(result){
@@ -42,7 +49,7 @@ function createStructure(result){
         card.setAttribute('id', 'card-'+i);
 
         var cardImg = document.createElement("div");
-        cardImg.setAttribute("class", "card-image");
+        cardImg.setAttribute("class", "card-image circle");
         var img = document.createElement("img");
         img.setAttribute("src", result.articles[i].urlToImage);
         img.setAttribute("onerror", "this.src='static/images/news.jpg'");
@@ -69,9 +76,9 @@ function createStructure(result){
         cardContent.appendChild(p);
         cardAction.appendChild(a);
         $("#card-"+i).hover(function(){
-            $(this).css('background-color', 'rgb(255,255,255,1)');
+            $(this).css('background-color', ' #753939');
         }, function(){
-            $(this).css('background-color', 'rgb(255,255,255,0.3)')
+            $(this).css('background-color', '#D7DFB0')
         });
     }
 }
