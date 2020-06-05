@@ -16,6 +16,9 @@ label {
     cursor: pointer;
 }
 
+.input-field{
+    margin-top: 8%;
+}
 
 .sidenav{
     width: 200px;
