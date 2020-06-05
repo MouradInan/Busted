@@ -12,6 +12,27 @@ label {
 .card-content > p {
     color: white;
 }
+.card{
+    cursor: pointer;
+}
+
+
+.sidenav{
+    width: 200px;
+}
+.side-nav{
+    color: #753939 !important;
+}
+
+#meteo_image{
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#burger{
+    margin-top: 28px;
+}
 
 .ui-autocomplete {
     max-height: 300px;
@@ -20,7 +41,7 @@ label {
     overflow-x: hidden;
     /* add padding to account for vertical scrollbar */
     padding-right: 10px;
-    background: transparent;
+    background: #753939;
 }
 .ui-menu-item{
     color: #D7DFB0;
@@ -39,7 +60,7 @@ label {
 }
 
 .card {
-    background-color: #D7DFB0;
+    background-color: transparent;
 }
 #cmd-ChipsAjout {
     transform: translate(0,50%);
@@ -49,14 +70,8 @@ label {
 .input::placeholder {
     color: black !important;
 }
-#meteo {
-    border-radius: 0 15px 15px 0;
-    width: 14%;
-    background-color: rgb(38,166,154,0.7);
-}
-#meteo>div {
-    margin-left: 10%;
-}
+
+
 #city {
     color: #b71c1c ;
 }

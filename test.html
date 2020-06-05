@@ -15,8 +15,19 @@
 
 	<title>News</title>
 </head>
-<body>
+<body onload="loadTopHeadlines('fr')">
 	<div class="container">
+
+		<nav id="slide-out" class="sidenav" role="navigation">
+			<div class="nav-wrapper">
+				<ul class="side-nav" id="mobile-demo">
+					<li id="meteo"></li>
+					<li><a onclick="come_from_nav_side('us')">Lire en Anglais</a></li>
+					<li><a onclick="come_from_nav_side('fr')">Lire en Français</a></li>
+				</ul>
+			</div>
+		</nav>
+
 		<!--
 		<div class="row header">
 			<h5>Choisir votre pays:</h5>
@@ -32,6 +43,9 @@
 			</p>
 		</div> -->
 		<div class="row">
+			<div class="col s2 m2" id="burger">
+				<a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+			</div>
 			<div class="col s10 m10 input-field">
 				<input id="query" type="text">
 				<label for="query">Rechercher...</label>

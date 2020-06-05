@@ -1,7 +1,7 @@
 /* Script pour l'api Météo avec la géolocalisation */
 
 var apikey="ee43a99b93e33ab5579123dc84a94031";
-var cityNameIfNotGeolocalized='Montpellier';
+var cityNameIfNotGeolocalized='Paris';
 var urlForFetch;
 
 // Cette fonction permet de récupérer la position de l'utilisateur pour lui fournir la météo de sa ville.
@@ -23,38 +23,40 @@ function showError(error){
     getMeteo();
 }
 function getMeteo(){
+
     fetch(url).then(function(response){ 
         response.json().then(function(result){
-            var imgmeteo = new Image(100,100) ;
+            var imgmeteo = new Image(50,50) ;
+            imgmeteo.setAttribute('id', 'meteo_image');
             var resultMeteo;
             switch (result.weather[0].main) {
                 case 'Mist':
-                    imgmeteo.src='https://mvistatic.com/design/images/meteo/pictos/2017/nuit_P6_a.png';
+                    imgmeteo.src= 'static/images/brouillard.png';
                     document.getElementById("meteo").append(imgmeteo);
                     resultMeteo = 'Brouillard';
                     break;
                 case 'Clouds':
-                    imgmeteo.src='http://archives.nicematin.com/media_nicematin/imagecache/article-taille-normale-nm/image/ouch/2013/11/17/b8af1a5900556d2e5f4a643b11199ff7.png&hash=abcdeafad';
+                    imgmeteo.src='static/images/nuageux.png';
                     document.getElementById("meteo").appendChild(imgmeteo);
                     resultMeteo = 'Nuageux';
                     break;
                 case 'Sun':
-                    imgmeteo.scr='http://archives.varmatin.com/media_varmatin/imagecache/article-taille-normale/image/ouch/2013/11/17/6819ceccc4f2587143ed626c2bff46a1.png&hash=abcdeafad';
+                    imgmeteo.src='static/images/sunny.jpg';
                     document.getElementById("meteo").appendChild(imgmeteo);
                     resultMeteo = 'Clair';
                     break;
                 case 'Rain':
-                    imgmeteo.src='http://www.icône.com/images/icones/1/4/weather-overcast-2.png&hash=abcdeafad';
+                    imgmeteo.src='static/images/rain.jpg';
                     document.getElementById("meteo").appendChild(imgmeteo);
                     resultMeteo = 'Pluvieux';
                     break;
                 case 'Clear':
-                    imgmeteo.src='http://archives.varmatin.com/media_varmatin/imagecache/article-taille-normale/image/ouch/2013/11/17/6819ceccc4f2587143ed626c2bff46a1.png&hash=abcdeafad';
+                    imgmeteo.src='static/images/sunny.jpg';
                     document.getElementById("meteo").appendChild(imgmeteo);
                     resultMeteo = 'Clair';
                     break;
                 case 'Drizzle':
-                    imgmeteo.src='http://archives.nicematin.com/media_nicematin/imagecache/article-taille-normale-nm/image/ouch/2013/11/17/b8af1a5900556d2e5f4a643b11199ff7.png&hash=abcdeafad';
+                    imgmeteo.src='../images/nuageux.jpg';
                     document.getElementById("meteo").appendChild(imgmeteo);
                     resultMeteo = 'Couvert';    
                     break;
@@ -63,7 +65,9 @@ function getMeteo(){
                     document.getElementById("meteo").appendChild(imgmeteo);
                     resultMeteo = 'Non disponible';    
             }
-            document.getElementById("meteo").innerHTML +="<div onload='parseCoords()'><span id=\"city\">"+ result.name+ "</span>, "+resultMeteo+"</div>";
+            document.getElementById("meteo").innerHTML +="<span style='display:block;text-align: center;' onload='parseCoords()'><span id=\"city\">"+ result.name+ "</span>, "+resultMeteo+"</span>";
         });
     });
 }
+
+getLocation();
