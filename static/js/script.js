@@ -120,7 +120,7 @@ function come_from_nav_side(lang){
 // Chargement de news
 function loadTopHeadlines(lang){
     removeLastSearch();
-    var url = 'https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/top-headlines?country='+lang+'&apiKey=6cd5152e27e940f091262721214a542f';
+    var url = 'https://newsapi.org/v2/top-headlines?country='+lang+'&apiKey=6cd5152e27e940f091262721214a542f';
     fetch(url).then(function(response) {
         response.json().then(function(data){
             createStructure(data);
