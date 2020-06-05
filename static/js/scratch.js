@@ -24,7 +24,7 @@ function showError(error){
 }
 function getMeteo(){
 
-    fetch(url).then(function(response){ 
+    fetch(url,{'mode': "no-cors"}).then(function(response){
         response.json().then(function(result){
             var imgmeteo = new Image(50,50) ;
             imgmeteo.setAttribute('id', 'meteo_image');
